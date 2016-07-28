@@ -1,0 +1,1 @@
+app ansible_ssh_host=172.28.128.38 ansible_ssh_port=22
