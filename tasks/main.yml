@@ -1,0 +1,29 @@
+    - name: Updates apt cache
+      action: apt update_cache=true
+
+    - name: Updating cache with git core.
+      apt: name=git-core update_cache=yes
+
+    - name: Creating git user
+      action: user name=git shell=/usr/bin/git-shell home=/home/git generate_ssh_key=yes
+    
+    - name: Creating authorized_keys 
+      action: copy src=files/authorized_keys dest=/home/git/.ssh/authorized_keys owner=git mode=0600
+
+    - name: set up authorized_keys
+      authorized_key: user=git key={{ lookup('file', path_for_authorized_keys) }} exclusive=yes
+
+    - name: Create Directory for GIT repossitory
+      action: file path={{ git_repository_path }} owner=git group=git mode=0775 state=directory
+
+    - name: Create bare repository for GIT
+      action: command chdir={{ git_repository_path }} creates={{ git_repository_path }}/HEAD git init --bare
+
+    - name: Give rite Permission for the repos
+      action: command chdir={{ git_repository_path }} chown git.git -R .
+
+    - name: Copy post-receive scripts 
+      action: template src=hooks/postreceive.j2 dest={{ git_repository_path }}/hooks/post-receive owner=git mode=0755
+    
+    - name: Copy pre-receive scripts 
+      action: template src=hooks/prereceive.j2 dest={{ git_repository_path }}/hooks/pre-receive owner=git mode=0755
