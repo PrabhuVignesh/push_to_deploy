@@ -3,6 +3,7 @@
 galaxy_info:
   author: Prabhu Vignesh Kumar Rajagopal
   description: GIT Push to deploy your application
+  license: open-source
   min_ansible_version: 1.5
   platforms:
   - name: Ubuntu
