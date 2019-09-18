@@ -25,4 +25,4 @@ After the ansible playbook run, Workstation machine should have this remote in g
 
   __`git remote add production git@gitserver:repo.git`__
   
-  when ever developer push the code to gitserver, script for _post-receive_ and _pre-receive_ will run. for example "_puppet deploy script_", "_cap deploy..._" etc..
+  when ever developer push the code to gitserver, script for _post-receive_ and _pre-receive_ will run. for example "_puppet deploy script_", "_cap deploy..._" etc.. Test 1
